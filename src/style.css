@@ -1,0 +1,104 @@
+body {
+    font-size: 18px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif; 
+    box-sizing: border-box;
+    margin: 0;
+}
+
+h2 {
+    margin: 14px 0;
+}
+
+h4 {
+    margin: 10px 0;
+}
+
+p {
+    margin: 0;
+    margin-bottom: 8px;
+}
+  
+#main {
+    margin: 0 auto;
+    width: 900px;
+}
+
+.keyboard-output {
+    width: 100%;
+    height: 110px;
+}
+
+.keyboard {
+       
+}
+.row {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 10px;
+}
+
+.text-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    position: relative;
+
+    margin-right: 6px;
+    width: 40px;
+    height: 40px;
+
+    cursor: pointer;
+    border-radius: 3px;
+    color: rgb(240, 231, 231);
+    background-color: #4a525a;
+}
+
+.text-button:hover {
+    background-color: #5c656e;
+}
+
+.text-button:active {
+    background-color: rgb(114, 114, 250);
+}
+
+.text-button__key {
+    font-weight: bold;
+}
+
+.text-button__shift-key {
+    top: 0;
+    left: 5px;
+    position: absolute;
+    font-size: 0.9rem;
+}
+
+.text-button__pressed {
+    background-color: rgb(114, 114, 250);
+}
+
+/* ============== keys =================== */
+
+.backspace {
+    flex: 2;
+}
+
+.caps-lock {
+    flex: 2;
+}
+
+.enter {
+    flex: 2;
+}
+
+.left-shift {
+    flex: 2.2;
+}
+
+.ctrl {
+    flex: 1.5;
+}
+
+.whitespace {
+    flex: 6.5;
+}
