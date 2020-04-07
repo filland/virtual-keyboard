@@ -1,4 +1,5 @@
 import "./style.css";
+import { Keyboard } from "./Keyboard";
 
 const main = document.createElement("div");
 main.id = "main";
@@ -28,738 +29,1291 @@ const textarea = document.createElement("textarea");
 textarea.classList.add("keyboard-output");
 main.appendChild(textarea);
 
-const russian = "ru";
-const english = "en";
 
-let keyboardState = {
-  ctrlPressed: false,
-  shiftPressed: false,
-  lang: russian,
+
+
+
+
+const keyboardConfig = {
+  parentDiv: main,
+  style: {
+    keyboardClass: "keyboard",
+  },
+  changeLangKeys: ["Control", "Shift"],
+  languages: ["ru", "en"],
+  defaultLang: "ru",
 };
 
-function toggleCtrl() {
-  setState({ ctrlPressed: !keyboardState.ctrlPressed });
-  tryChangeLang();
-}
 
-function toggleShift() {
-  setState({ shiftPressed: !keyboardState.shiftPressed });
-  tryChangeLang();
-}
-
-function setState(objct) {
-  keyboardState = { ...keyboardState, ...objct };
-}
-
-function tryChangeLang() {
-  if (keyboardState.ctrlPressed && keyboardState.shiftPressed) {
-    keyboardState.lang = keyboardState.lang === russian ? english : russian;
-    // update keyboard...
-  }
-}
-
-const keyboardConfig = [
+const keysConfig = [
   [
     {
-      key: {
-        ru: {
-          key: "ё",
+      output: textarea,
+      defaultLang: "ru",
+      langs: [
+        {
+          lang: "ru",
+          keyText: "ё",
+          keyValue: "ё",
         },
-        en: {
-          key: "`",
-          shiftKey: "~",
+        {
+          lang: "en",
+          keyText: "`",
+          keyValue: "`",
+          shiftKeyText: "~",
+          shiftKeyValue: "~",
         },
-      },
+      ],
       eventCode: "Backquote",
       type: "text",
     },
-    { key: "1", shiftKey: "!", eventCode: "Digit1", type: "text" },
     {
-      key: {
-        ru: {
-          key: "2",
-          shiftKey: '"',
+      output: textarea,
+      defaultLang: "ru",
+      langs: [
+        {
+          lang: "ru",
+          keyText: "1",
+          keyValue: "1",
+          shiftKeyText: "!",
+          shiftKeyValue: "!",
         },
-        en: {
-          key: "2",
-          shiftKey: "@",
+        {
+          lang: "en",
+          keyText: "1",
+          keyValue: "1",
+          shiftKeyText: "!",
+          shiftKeyValue: "!",
         },
-      },
+      ],
+      eventCode: "Digit1",
+      type: "text",
+    },
+    {
+      output: textarea,
+      defaultLang: "ru",
+      langs: [
+        {
+          lang: "ru",
+          keyText: "2",
+          keyValue: "2",
+          shiftKeyText: '"',
+          shiftKeyValue: '"',
+        },
+        {
+          lang: "en",
+          keyText: "2",
+          keyValue: "2",
+          shiftKeyText: "@",
+          shiftKeyValue: "@",
+        },
+      ],
       eventCode: "Digit2",
       type: "text",
     },
+
     {
-      key: {
-        ru: {
-          key: "3",
-          shiftKey: "№",
+      output: textarea,
+      defaultLang: "ru",
+      langs: [
+        {
+          lang: "ru",
+          keyText: "3",
+          keyValue: "3",
+          shiftKeyText: "№",
+          shiftKeyValue: "№",
         },
-        en: {
-          key: "3",
-          shiftKey: "#",
+        {
+          lang: "en",
+          keyText: "3",
+          keyValue: "3",
+          shiftKeyText: "#",
+          shiftKeyValue: "#",
         },
-      },
+      ],
       eventCode: "Digit3",
       type: "text",
     },
+
     {
-      key: {
-        ru: {
-          key: "4",
-          shiftKey: ";",
+      output: textarea,
+      defaultLang: "ru",
+      langs: [
+        {
+          lang: "ru",
+          keyText: "4",
+          keyValue: "4",
+          shiftKeyText: ";",
+          shiftKeyValue: ";",
         },
-        en: {
-          key: "4",
-          shiftKey: "$",
+        {
+          lang: "en",
+          keyText: "4",
+          keyValue: "4",
+          shiftKeyText: "$",
+          shiftKeyValue: "$",
         },
-      },
+      ],
       eventCode: "Digit4",
       type: "text",
     },
-    { key: "5", shiftKey: "%", eventCode: "Digit5", type: "text" },
+
     {
-      key: {
-        ru: {
-          key: "6",
-          shiftKey: ":",
+      output: textarea,
+      defaultLang: "ru",
+      langs: [
+        {
+          lang: "ru",
+          keyText: "6",
+          keyValue: "6",
+          shiftKeyText: ":",
+          shiftKeyValue: ":",
         },
-        en: {
-          key: "6",
-          shiftKey: "^",
+        {
+          lang: "en",
+          keyText: "6",
+          keyValue: "6",
+          shiftKeyText: "^",
+          shiftKeyValue: "^",
         },
-      },
+      ],
       eventCode: "Digit6",
       type: "text",
     },
+
     {
-      key: {
-        ru: {
-          key: "7",
-          shiftKey: "?",
+      output: textarea,
+      defaultLang: "ru",
+      langs: [
+        {
+          lang: "ru",
+          keyText: "7",
+          keyValue: "7",
+          shiftKeyText: "?",
+          shiftKeyValue: "?",
         },
-        en: {
-          key: "7",
-          shiftKey: "&",
+        {
+          lang: "en",
+          keyText: "7",
+          keyValue: "7",
+          shiftKeyText: "&",
+          shiftKeyValue: "&",
         },
-      },
+      ],
       eventCode: "Digit7",
       type: "text",
     },
-    { key: "8", shiftKey: "*", eventCode: "Digit8", type: "text" },
-    { key: "9", shiftKey: "(", eventCode: "Digit9", type: "text" },
-    { key: "0", shiftKey: ")", eventCode: "Digit0", type: "text" },
-    { key: "-", shiftKey: "_", eventCode: "Minus", type: "text" },
-    { key: "=", shiftKey: "+", eventCode: "Equal", type: "text" },
+
     {
-      key: "Backspace",
-      value: "",
-      handler: () => {
-        textarea.value = textarea.value.substring(0, textarea.value.length - 1);
-      },
-      class: "backspace",
+      output: textarea,
+      defaultLang: "ru",
+      langs: [
+        {
+          lang: "ru",
+          keyText: "8",
+          keyValue: "8",
+          shiftKeyText: "*",
+          shiftKeyValue: "*",
+        },
+        {
+          lang: "en",
+          keyText: "8",
+          keyValue: "8",
+          shiftKeyText: "*",
+          shiftKeyValue: "*",
+        },
+      ],
+      eventCode: "Digit8",
+      type: "text",
+    },
+
+    {
+      output: textarea,
+      defaultLang: "ru",
+      langs: [
+        {
+          lang: "ru",
+          keyText: "9",
+          keyValue: "9",
+          shiftKeyText: "(",
+          shiftKeyValue: "(",
+        },
+        {
+          lang: "en",
+          keyText: "9",
+          keyValue: "9",
+          shiftKeyText: "(",
+          shiftKeyValue: "(",
+        },
+      ],
+      eventCode: "Digit9",
+      type: "text",
+    },
+
+    {
+      output: textarea,
+      defaultLang: "ru",
+      langs: [
+        {
+          lang: "ru",
+          keyText: "0",
+          keyValue: "0",
+          shiftKeyText: ")",
+          shiftKeyValue: ")",
+        },
+        {
+          lang: "en",
+          keyText: "0",
+          keyValue: "0",
+          shiftKeyText: ")",
+          shiftKeyValue: ")",
+        },
+      ],
+      eventCode: "Digit0",
+      type: "text",
+    },
+
+    {
+      output: textarea,
+      defaultLang: "ru",
+      langs: [
+        {
+          lang: "ru",
+          keyText: "-",
+          keyValue: "-",
+          shiftKeyText: "_",
+          shiftKeyValue: "_",
+        },
+        {
+          lang: "en",
+          keyText: "-",
+          keyValue: "-",
+          shiftKeyText: "_",
+          shiftKeyValue: "_",
+        },
+      ],
+      eventCode: "Minus",
+      type: "text",
+    },
+
+    {
+      output: textarea,
+      defaultLang: "ru",
+      langs: [
+        {
+          lang: "ru",
+          keyText: "=",
+          keyValue: "=",
+          shiftKeyText: "+",
+          shiftKeyValue: "+",
+        },
+        {
+          lang: "en",
+          keyText: "=",
+          keyValue: "=",
+          shiftKeyText: "+",
+          shiftKeyValue: "+",
+        },
+      ],
+      eventCode: "Equal",
+      type: "text",
+    },
+    {
+      output: textarea,
+      defaultLang: "ru",
+      langs: [
+        {
+          lang: "ru",
+          keyText: "Backspace",
+          keyValue: "",
+        },
+        {
+          lang: "en",
+          keyText: "Backspace",
+          keyValue: "",
+        },
+      ],
+      eventCode: "Backspace",
       type: "system",
+      class: "backspace",
+      handler: (output) => {
+        output.value = output.value.substring(0, output.value.length - 1);
+      }
     },
   ],
+
+  // row 2
   [
-    { key: "Tab", value: "   ", type: "system" },
     {
-      key: {
-        ru: {
-          key: "й",
+      output: textarea,
+      defaultLang: "ru",
+      langs: [
+        {
+          lang: "ru",
+          keyText: "Tab",
+          keyValue: "",
         },
-        en: {
-          key: "q",
+        {
+          lang: "en",
+          keyText: "Tab",
+          keyValue: "",
         },
-      },
+      ],
+      eventCode: "Tab",
+      type: "system",
+    },
+
+    {
+      output: textarea,
+      defaultLang: "ru",
+      langs: [
+        {
+          lang: "ru",
+          keyText: "й",
+          keyValue: "й",
+        },
+        {
+          lang: "en",
+          keyText: "q",
+          keyValue: "q",
+        },
+      ],
       eventCode: "KeyQ",
       type: "text",
     },
+
     {
-      key: {
-        ru: {
-          key: "ц",
+      output: textarea,
+      defaultLang: "ru",
+      langs: [
+        {
+          lang: "ru",
+          keyText: "ц",
+          keyValue: "ц",
         },
-        en: {
-          key: "w",
+        {
+          lang: "en",
+          keyText: "w",
+          keyValue: "w",
         },
-      },
+      ],
       eventCode: "KeyW",
       type: "text",
     },
+
     {
-      key: {
-        ru: {
-          key: "у",
+      output: textarea,
+      defaultLang: "ru",
+      langs: [
+        {
+          lang: "ru",
+          keyText: "у",
+          keyValue: "у",
         },
-        en: {
-          key: "e",
+        {
+          lang: "en",
+          keyText: "e",
+          keyValue: "e",
         },
-      },
+      ],
       eventCode: "KeyE",
       type: "text",
     },
+
     {
-      key: {
-        ru: {
-          key: "к",
+      output: textarea,
+      defaultLang: "ru",
+      langs: [
+        {
+          lang: "ru",
+          keyText: "к",
+          keyValue: "к",
         },
-        en: {
-          key: "r",
+        {
+          lang: "en",
+          keyText: "r",
+          keyValue: "r",
         },
-      },
+      ],
       eventCode: "KeyR",
       type: "text",
     },
+
     {
-      key: {
-        ru: {
-          key: "е",
+      output: textarea,
+      defaultLang: "ru",
+      langs: [
+        {
+          lang: "ru",
+          keyText: "е",
+          keyValue: "е",
         },
-        en: {
-          key: "t",
+        {
+          lang: "en",
+          keyText: "t",
+          keyValue: "t",
         },
-      },
+      ],
       eventCode: "KeyT",
       type: "text",
     },
+
     {
-      key: {
-        ru: {
-          key: "н",
+      output: textarea,
+      defaultLang: "ru",
+      langs: [
+        {
+          lang: "ru",
+          keyText: "н",
+          keyValue: "н",
         },
-        en: {
-          key: "y",
+        {
+          lang: "en",
+          keyText: "y",
+          keyValue: "y",
         },
-      },
+      ],
       eventCode: "KeyY",
       type: "text",
     },
+
     {
-      key: {
-        ru: {
-          key: "г",
+      output: textarea,
+      defaultLang: "ru",
+      langs: [
+        {
+          lang: "ru",
+          keyText: "г",
+          keyValue: "г",
         },
-        en: { key: "u" },
-      },
+        {
+          lang: "en",
+          keyText: "u",
+          keyValue: "u",
+        },
+      ],
       eventCode: "KeyU",
       type: "text",
     },
+
     {
-      key: {
-        ru: {
-          key: "ш",
+      output: textarea,
+      defaultLang: "ru",
+      langs: [
+        {
+          lang: "ru",
+          keyText: "ш",
+          keyValue: "ш",
         },
-        en: {
-          key: "u",
+        {
+          lang: "en",
+          keyText: "u",
+          keyValue: "u",
         },
-      },
+      ],
       eventCode: "KeyI",
       type: "text",
     },
+
     {
-      key: {
-        ru: {
-          key: "щ",
+      output: textarea,
+      defaultLang: "ru",
+      langs: [
+        {
+          lang: "ru",
+          keyText: "щ",
+          keyValue: "щ",
         },
-        en: {
-          key: "o",
+        {
+          lang: "en",
+          keyText: "o",
+          keyValue: "o",
         },
-      },
+      ],
       eventCode: "KeyO",
       type: "text",
     },
+
     {
-      key: {
-        ru: {
-          key: "з",
+      output: textarea,
+      defaultLang: "ru",
+      langs: [
+        {
+          lang: "ru",
+          keyText: "з",
+          keyValue: "з",
         },
-        en: {
-          key: "p",
+        {
+          lang: "en",
+          keyText: "p",
+          keyValue: "p",
         },
-      },
+      ],
       eventCode: "KeyP",
       type: "text",
     },
+
     {
-      key: {
-        ru: {
-          key: "х",
+      output: textarea,
+      defaultLang: "ru",
+      langs: [
+        {
+          lang: "ru",
+          keyText: "х",
+          keyValue: "х",
         },
-        en: {
-          key: "[",
+        {
+          lang: "en",
+          keyText: "[",
+          keyValue: "[",
         },
-      },
+      ],
       eventCode: "BracketLeft",
       type: "text",
     },
+
     {
-      key: {
-        ru: {
-          key: "ъ",
+      output: textarea,
+      defaultLang: "ru",
+      langs: [
+        {
+          lang: "ru",
+          keyText: "ъ",
+          keyValue: "ъ",
         },
-        en: {
-          key: "]",
+        {
+          lang: "en",
+          keyText: "]",
+          keyValue: "]",
         },
-      },
+      ],
       eventCode: "BracketRight",
       type: "text",
     },
-    { key: "\\", shiftKey: "/", type: "text" },
-    { key: "Del", value: "", eventCode: "Delete", type: "system" },
-  ],
-  [
+
     {
-      key: "CapsLock",
-      value: "",
-      class: "caps-lock",
-      handler: () => {},
+      output: textarea,
+      defaultLang: "ru",
+      langs: [
+        {
+          lang: "ru",
+          keyText: "\\",
+          keyValue: "\\",
+          shiftKeyText: "/",
+          shiftKeyValue: "/",
+        },
+        {
+          lang: "en",
+          keyText: "\\",
+          keyValue: "\\",
+          shiftKeyText: "/",
+          shiftKeyValue: "/",
+        },
+      ],
+      eventCode: "Backslash",
+      type: "text",
+    },
+
+    {
+      output: textarea,
+      defaultLang: "ru",
+      langs: [
+        {
+          lang: "ru",
+          keyText: "Del",
+          keyValue: "",
+        },
+        {
+          lang: "en",
+          keyText: "Del",
+          keyValue: "",
+        },
+      ],
+      eventCode: "Delete",
       type: "system",
     },
+  ],
+
+  // row 3
+  [
     {
-      key: {
-        ru: {
-          key: "ф",
+      output: textarea,
+      defaultLang: "ru",
+      langs: [
+        {
+          lang: "ru",
+          keyText: "CapsLock",
+          keyValue: "",
         },
-        en: {
-          key: "a",
+        {
+          lang: "en",
+          keyText: "CapsLock",
+          keyValue: "",
         },
-      },
+      ],
+      eventCode: "CapsLock",
+      type: "system",
+      class: "caps-lock",
+    },
+
+    {
+      output: textarea,
+      defaultLang: "ru",
+      langs: [
+        {
+          lang: "ru",
+          keyText: "ф",
+          keyValue: "ф",
+        },
+        {
+          lang: "en",
+          keyText: "a",
+          keyValue: "a",
+        },
+      ],
       eventCode: "KeyA",
       type: "text",
     },
+
     {
-      key: {
-        ru: {
-          key: "ы",
+      output: textarea,
+      defaultLang: "ru",
+      langs: [
+        {
+          lang: "ru",
+          keyText: "ы",
+          keyValue: "ы",
         },
-        en: {
-          key: "s",
+        {
+          lang: "en",
+          keyText: "s",
+          keyValue: "s",
         },
-      },
+      ],
       eventCode: "KeyS",
       type: "text",
     },
+
     {
-      key: {
-        ru: {
-          key: "в",
+      output: textarea,
+      defaultLang: "ru",
+      langs: [
+        {
+          lang: "ru",
+          keyText: "в",
+          keyValue: "в",
         },
-        en: {
-          key: "d",
+        {
+          lang: "en",
+          keyText: "d",
+          keyValue: "d",
         },
-      },
+      ],
       eventCode: "KeyD",
       type: "text",
     },
+
     {
-      key: {
-        ru: {
-          key: "а",
+      output: textarea,
+      defaultLang: "ru",
+      langs: [
+        {
+          lang: "ru",
+          keyText: "а",
+          keyValue: "а",
         },
-        en: {
-          key: "f",
+        {
+          lang: "en",
+          keyText: "f",
+          keyValue: "f",
         },
-      },
+      ],
       eventCode: "KeyF",
       type: "text",
     },
+
     {
-      key: {
-        ru: {
-          key: "п",
+      output: textarea,
+      defaultLang: "ru",
+      langs: [
+        {
+          lang: "ru",
+          keyText: "п",
+          keyValue: "п",
         },
-        en: {
-          key: "g",
+        {
+          lang: "en",
+          keyText: "g",
+          keyValue: "g",
         },
-      },
+      ],
       eventCode: "KeyG",
       type: "text",
     },
+
     {
-      key: {
-        ru: {
-          key: "р",
+      output: textarea,
+      defaultLang: "ru",
+      langs: [
+        {
+          lang: "ru",
+          keyText: "р",
+          keyValue: "р",
         },
-        en: {
-          key: "h",
+        {
+          lang: "en",
+          keyText: "h",
+          keyValue: "h",
         },
-      },
+      ],
       eventCode: "KeyH",
       type: "text",
     },
+
     {
-      key: {
-        ru: {
-          key: "о",
+      output: textarea,
+      defaultLang: "ru",
+      langs: [
+        {
+          lang: "ru",
+          keyText: "о",
+          keyValue: "о",
         },
-        en: {
-          key: "j",
+        {
+          lang: "en",
+          keyText: "j",
+          keyValue: "j",
         },
-      },
+      ],
       eventCode: "KeyJ",
       type: "text",
     },
+
     {
-      key: {
-        ru: {
-          key: "л",
+      output: textarea,
+      defaultLang: "ru",
+      langs: [
+        {
+          lang: "ru",
+          keyText: "л",
+          keyValue: "л",
         },
-        en: {
-          key: "k",
+        {
+          lang: "en",
+          keyText: "k",
+          keyValue: "k",
         },
-      },
+      ],
       eventCode: "KeyK",
       type: "text",
     },
+
     {
-      key: {
-        ru: {
-          key: "д",
+      output: textarea,
+      defaultLang: "ru",
+      langs: [
+        {
+          lang: "ru",
+          keyText: "д",
+          keyValue: "д",
         },
-        en: {
-          key: "l",
+        {
+          lang: "en",
+          keyText: "l",
+          keyValue: "l",
         },
-      },
+      ],
       eventCode: "KeyL",
       type: "text",
     },
+
     {
-      key: {
-        ru: {
-          key: "ж",
+      output: textarea,
+      defaultLang: "ru",
+      langs: [
+        {
+          lang: "ru",
+          keyText: "ж",
+          keyValue: "ж",
         },
-        en: {
-          key: ";",
+        {
+          lang: "en",
+          keyText: ";",
+          keyValue: ";",
         },
-      },
+      ],
       eventCode: "Semicolon",
       type: "text",
     },
+
     {
-      key: {
-        ru: {
-          key: "э",
+      output: textarea,
+      defaultLang: "ru",
+      langs: [
+        {
+          lang: "ru",
+          keyText: "э",
+          keyValue: "э",
         },
-        en: {
-          key: "'",
+        {
+          lang: "en",
+          keyText: "'",
+          keyValue: "'",
         },
-      },
+      ],
       eventCode: "Quote",
       type: "text",
     },
-    { key: "Enter", value: "\r", class: "enter", type: "system" },
+
+    {
+      output: textarea,
+      defaultLang: "ru",
+      langs: [
+        {
+          lang: "ru",
+          keyText: "Enter",
+          keyValue: "\r",
+        },
+        {
+          lang: "en",
+          keyText: "Enter",
+          keyValue: "\r",
+        },
+      ],
+      eventCode: "Enter",
+      type: "text",
+      class: "enter",
+    },
   ],
+
+  //  row 4
   [
     {
-      key: "Shift",
-      value: "",
-      class: "left-shift",
+      output: textarea,
+      defaultLang: "ru",
+      langs: [
+        {
+          lang: "ru",
+          keyText: "Shift",
+          keyValue: "",
+        },
+        {
+          lang: "en",
+          keyText: "Shift",
+          keyValue: "",
+        },
+      ],
       eventCode: "ShiftLeft",
       type: "system",
+      class: "left-shift",
     },
+
     {
-      key: {
-        ru: {
-          key: "я",
+      output: textarea,
+      defaultLang: "ru",
+      langs: [
+        {
+          lang: "ru",
+          keyText: "я",
+          keyValue: "я",
         },
-        en: {
-          key: "z",
+        {
+          lang: "en",
+          keyText: "z",
+          keyValue: "z",
         },
-      },
+      ],
       eventCode: "KeyZ",
       type: "text",
     },
+
     {
-      key: {
-        ru: {
-          key: "ч",
+      output: textarea,
+      defaultLang: "ru",
+      langs: [
+        {
+          lang: "ru",
+          keyText: "ч",
+          keyValue: "ч",
         },
-        en: {
-          key: "x",
+        {
+          lang: "en",
+          keyText: "x",
+          keyValue: "x",
         },
-      },
+      ],
       eventCode: "KeyX",
       type: "text",
     },
+
     {
-      key: {
-        ru: {
-          key: "с",
+      output: textarea,
+      defaultLang: "ru",
+      langs: [
+        {
+          lang: "ru",
+          keyText: "с",
+          keyValue: "с",
         },
-        en: {
-          key: "c",
+        {
+          lang: "en",
+          keyText: "c",
+          keyValue: "c",
         },
-      },
+      ],
       eventCode: "KeyC",
       type: "text",
     },
+
     {
-      key: {
-        ru: {
-          key: "м",
+      output: textarea,
+      defaultLang: "ru",
+      langs: [
+        {
+          lang: "ru",
+          keyText: "м",
+          keyValue: "м",
         },
-        en: {
-          key: "v",
+        {
+          lang: "en",
+          keyText: "v",
+          keyValue: "v",
         },
-      },
+      ],
       eventCode: "KeyV",
       type: "text",
     },
+
     {
-      key: {
-        ru: {
-          key: "и",
+      output: textarea,
+      defaultLang: "ru",
+      langs: [
+        {
+          lang: "ru",
+          keyText: "и",
+          keyValue: "и",
         },
-        en: {
-          key: "b",
+        {
+          lang: "en",
+          keyText: "b",
+          keyValue: "b",
         },
-      },
+      ],
       eventCode: "KeyB",
       type: "text",
     },
+
     {
-      key: {
-        ru: {
-          key: "т",
+      output: textarea,
+      defaultLang: "ru",
+      langs: [
+        {
+          lang: "ru",
+          keyText: "т",
+          keyValue: "т",
         },
-        en: {
-          key: "n",
+        {
+          lang: "en",
+          keyText: "n",
+          keyValue: "n",
         },
-      },
+      ],
       eventCode: "KeyN",
       type: "text",
     },
+
     {
-      key: {
-        ru: {
-          key: "ь",
+      output: textarea,
+      defaultLang: "ru",
+      langs: [
+        {
+          lang: "ru",
+          keyText: "ь",
+          keyValue: "ь",
         },
-        en: {
-          key: "m",
+        {
+          lang: "en",
+          keyText: "m",
+          keyValue: "m",
         },
-      },
+      ],
       eventCode: "KeyM",
       type: "text",
     },
+
     {
-      key: {
-        ru: {
-          key: "б",
+      output: textarea,
+      defaultLang: "ru",
+      langs: [
+        {
+          lang: "ru",
+          keyText: "б",
+          keyValue: "б",
         },
-        en: {
-          key: ",",
+        {
+          lang: "en",
+          keyText: ",",
+          keyValue: ",",
         },
-      },
+      ],
       eventCode: "Comma",
       type: "text",
     },
+
     {
-      key: {
-        ru: {
-          key: "ю",
+      output: textarea,
+      defaultLang: "ru",
+      langs: [
+        {
+          lang: "ru",
+          keyText: "ю",
+          keyValue: "ю",
         },
-        en: {
-          key: ".",
+        {
+          lang: "en",
+          keyText: ".",
+          keyValue: ".",
         },
-      },
+      ],
       eventCode: "Period",
       type: "text",
     },
-    { key: "/", eventCode: "Slash", type: "text" },
-    { key: "up", value: "🠙", eventCode: "ArrowUp", type: "system" },
-    { key: "Shift", value: "", eventCode: "ShiftRight", type: "system" },
+
+    {
+      output: textarea,
+      defaultLang: "ru",
+      langs: [
+        {
+          lang: "ru",
+          keyText: "/",
+          keyValue: "/",
+        },
+        {
+          lang: "en",
+          keyText: "/",
+          keyValue: "/",
+        },
+      ],
+      eventCode: "Slash",
+      type: "text",
+    },
+
+    {
+      output: textarea,
+      defaultLang: "ru",
+      langs: [
+        {
+          lang: "ru",
+          keyText: "up",
+          keyValue: "🠙",
+        },
+        {
+          lang: "en",
+          keyText: "up",
+          keyValue: "🠙",
+        },
+      ],
+      eventCode: "ArrowUp",
+      type: "system",
+    },
+
+    {
+      output: textarea,
+      defaultLang: "ru",
+      langs: [
+        {
+          lang: "ru",
+          keyText: "Shift",
+          keyValue: "",
+        },
+        {
+          lang: "en",
+          keyText: "Shift",
+          keyValue: "",
+        },
+      ],
+      eventCode: "ShiftRight",
+      type: "system",
+    },
   ],
+
+  // row 5
   [
     {
-      key: "Ctrl",
-      value: "",
-      class: "ctrl",
+      output: textarea,
+      defaultLang: "ru",
+      langs: [
+        {
+          lang: "ru",
+          keyText: "Ctrl",
+          keyValue: "",
+        },
+        {
+          lang: "en",
+          keyText: "Ctrl",
+          keyValue: "",
+        },
+      ],
       eventCode: "ControlLeft",
       type: "system",
     },
-    { key: "Win", value: "", eventCode: "MetaLeft", type: "system" },
-    { key: "Alt", value: "", eventCode: "AltLeft", type: "system" },
+
     {
-      key: "Whitespace",
-      displayName: " ",
-      value: " ",
-      class: "whitespace",
+      output: textarea,
+      defaultLang: "ru",
+      langs: [
+        {
+          lang: "ru",
+          keyText: "Win",
+          keyValue: "",
+        },
+        {
+          lang: "en",
+          keyText: "Win",
+          keyValue: "",
+        },
+      ],
+      eventCode: "MetaLeft",
       type: "system",
     },
-    { key: "Alt", value: "", eventCode: "AltRight", type: "system" },
+
     {
-      key: "Ctrl",
-      value: "",
-      class: "ctrl",
+      output: textarea,
+      defaultLang: "ru",
+      langs: [
+        {
+          lang: "ru",
+          keyText: "Alt",
+          keyValue: "",
+        },
+        {
+          lang: "en",
+          keyText: "Alt",
+          keyValue: "",
+        },
+      ],
+      eventCode: "AltLeft",
+      type: "system",
+    },
+
+    {
+      output: textarea,
+      defaultLang: "ru",
+      langs: [
+        {
+          lang: "ru",
+          keyText: " ",
+          keyValue: " ",
+        },
+        {
+          lang: "en",
+          keyText: " ",
+          keyValue: " ",
+        },
+      ],
+      eventCode: "Space",
+      type: "text",
+      class: "whitespace",
+    },
+
+    {
+      output: textarea,
+      defaultLang: "ru",
+      langs: [
+        {
+          lang: "ru",
+          keyText: "Alt",
+          keyValue: "",
+        },
+        {
+          lang: "en",
+          keyText: "Alt",
+          keyValue: "",
+        },
+      ],
+      eventCode: "AltRight",
+      type: "system",
+    },
+
+    {
+      output: textarea,
+      defaultLang: "ru",
+      langs: [
+        {
+          lang: "ru",
+          keyText: "Ctrl",
+          keyValue: "",
+        },
+        {
+          lang: "en",
+          keyText: "Ctrl",
+          keyValue: "",
+        },
+      ],
       eventCode: "ControlRight",
       type: "system",
+      class: "ctrl",
     },
-    { key: "left", value: "🠘", eventCode: "ArrowLeft", type: "system" },
-    { key: "down", value: "🠛", eventCode: "ArrowDown", type: "system" },
-    { key: "right", value: "🠚", eventCode: "ArrowRight", type: "system" },
+
+    {
+      output: textarea,
+      defaultLang: "ru",
+      langs: [
+        {
+          lang: "ru",
+          keyText: "left",
+          keyValue: "🠘",
+        },
+        {
+          lang: "en",
+          keyText: "left",
+          keyValue: "🠘",
+        },
+      ],
+      eventCode: "ArrowLeft",
+      type: "system",
+    },
+
+    {
+      output: textarea,
+      defaultLang: "ru",
+      langs: [
+        {
+          lang: "ru",
+          keyText: "down",
+          keyValue: "🠛",
+        },
+        {
+          lang: "en",
+          keyText: "down",
+          keyValue: "🠛",
+        },
+      ],
+      eventCode: "ArrowDown",
+      type: "system",
+    },
+
+    {
+      output: textarea,
+      defaultLang: "ru",
+      langs: [
+        {
+          lang: "ru",
+          keyText: "right",
+          keyValue: "🠚",
+        },
+        {
+          lang: "en",
+          keyText: "right",
+          keyValue: "🠚",
+        },
+      ],
+      eventCode: "ArrowRight",
+      type: "system",
+    },
   ],
 ];
 
-//  init keyboard html elements
 
-const keyboard = document.createElement("div");
-keyboard.classList.add("keyboard");
 
-main.appendChild(keyboard);
-
-for (let i = 0; i < keyboardConfig.length; i++) {
-  const row = keyboardConfig[i];
-
-  let rowDiv = document.createElement("div");
-  rowDiv.classList.add("row");
-
-  for (let y = 0; y < row.length; y++) {
-    const key = row[y];
-
-    // create div for the key
-    let keyDiv = document.createElement("div");
-    keyDiv.classList.add("text-button");
-
-    // visible text of key
-    let keyDisplayName;
-
-    // key value that shoud be added to the textarea
-    let keyValue;
-
-    // visible text of shift key
-    let keyShiftValue;
-
-    if (key.type === "system") {
-      keyValue = key.key;
-      keyDisplayName = key.key;
-
-      // set key in the top left corner
-      if (key.shiftKey) {
-        keyShiftValue = key.shiftKey;
-      }
-    } else if ((key.type = "text")) {
-      // case when text key same in ru and in en
-      if (typeof key.key !== "object") {
-        keyValue = key.key;
-        keyDisplayName = key.key;
-        if (key.shiftKey) {
-          keyShiftValue = key.shiftKey;
-        }
-      } else if (typeof key.key === "object") {
-        let tempKey;
-
-        switch (keyboardState.lang) {
-          case russian:
-            tempKey = key.key.ru;
-            break;
-          case english:
-            tempKey = key.key.en;
-            break;
-        }
-
-        if (tempKey.key) {
-          keyValue = tempKey.key;
-          keyDisplayName = tempKey.key;
-        }
-
-        // set key in the top left corner
-        if (tempKey.shiftKey) {
-          keyShiftValue = tempKey.shiftKey;
-        }
-      } else {
-        throw new Error("such key type not supported!");
-      }
-    } else {
-      throw new Error("key type not specified!");
-    }
-
-    // if key has the value property then it should be used as text that will be added
-    // to the textarea on click on this key
-    if (key.hasOwnProperty("value")) {
-      keyValue = key.value;
-    }
-
-    // if key has the displayName property then it should be used as key display text
-    if (key.hasOwnProperty("displayName")) {
-      keyDisplayName = key.displayName;
-    }
-
-    // create key
-    let keyValueSpan = document.createElement("span");
-    keyValueSpan.classList.add("text-button__key");
-    keyValueSpan.innerText = keyDisplayName;
-    keyDiv.appendChild(keyValueSpan);
-
-    if (keyShiftValue) {
-      let shiftKeyValueSpan = document.createElement("span");
-      shiftKeyValueSpan.classList.add("text-button__shift-key");
-      shiftKeyValueSpan.innerText = keyShiftValue;
-      keyDiv.appendChild(shiftKeyValueSpan);
-    }
-
-    // set width of key
-    if (key.class) {
-      keyDiv.classList.add(key.class);
-    } else {
-      keyDiv.style.flex = "1";
-    }
-
-    keyDiv.addEventListener("click", (e) => {
-      textarea.value = textarea.value + keyValue;
-      if (key.handler) {
-        key.handler();
-      }
-    });
-
-    document.addEventListener("keydown", (e) => {
-      // key pressed not when cursor is in the textarea
-      if (key.eventCode && e.code === key.eventCode) {
-        keyDiv.classList.add("text-button__pressed");
-
-        if (e.target !== textarea) {
-          textarea.value = textarea.value + keyValue;
-          if (key.handler) {
-            key.handler();
-          }
-        }
-      } else if (e.key === keyDisplayName && !key.eventCode) {
-        keyDiv.classList.add("text-button__pressed");
-        if (e.target !== textarea) {
-          textarea.value = textarea.value + keyValue;
-          if (key.handler) {
-            key.handler();
-          }
-        }
-      }
-    });
-
-    document.addEventListener("keyup", (e) => {
-      if (key.eventCode && e.code === key.eventCode) {
-        keyDiv.classList.remove("text-button__pressed");
-      } else if (e.key === keyDisplayName) {
-        keyDiv.classList.remove("text-button__pressed");
-      }
-    });
-
-    rowDiv.appendChild(keyDiv);
-  }
-
-  keyboard.appendChild(rowDiv);
-}
-
-document.addEventListener("keydown", (e) => {
-  tryToggleLangKeys(e);
-});
-
-document.addEventListener("keyup", (e) => {
-  tryToggleLangKeys(e);
-});
-
-function tryToggleLangKeys(e) {
-  if (e.key === "Shift") {
-    toggleShift();
-  }
-  if (e.key === "Control") {
-    toggleCtrl();
-  }
-}
+new Keyboard(keyboardConfig, keysConfig);
