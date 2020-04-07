@@ -507,8 +507,8 @@ const keysConfig = [
         },
         {
           lang: "en",
-          keyText: "u",
-          keyValue: "u",
+          keyText: "i",
+          keyValue: "i",
         },
       ],
       eventCode: "KeyI",
