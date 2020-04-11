@@ -157,7 +157,28 @@ const keysConfig = [
       eventCode: "Digit4",
       type: "text",
     },
-
+    {
+      output: textarea,
+      defaultLang: "ru",
+      langs: [
+        {
+          lang: "ru",
+          keyText: "5",
+          keyValue: "5",
+          shiftKeyText: "%",
+          shiftKeyValue: "%",
+        },
+        {
+          lang: "en",
+          keyText: "5",
+          keyValue: "5",
+          shiftKeyText: "%",
+          shiftKeyValue: "%",
+        },
+      ],
+      eventCode: "Digit5",
+      type: "text",
+    },
     {
       output: textarea,
       defaultLang: "ru",
