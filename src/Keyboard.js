@@ -2,12 +2,13 @@ import { Key } from "./Key";
 
 const keyboardConfigTemplate = {
   parentDiv: null,
+  output: null,
   style: {
     keyboardClass: null,
   },
   changeLangKeys: ["Control", "Shift"],
   languages: ["ru", "en"],
-  defaultLang: "ru",
+  defaultLang: 0,
 };
 
 export class Keyboard {
@@ -18,7 +19,7 @@ export class Keyboard {
       self: null,
       changeLangKeyOnePressed: false,
       changeLangKeyTwoPressed: false,
-      lang: keyboardConfig.defaultLang,
+      lang: keyboardConfig.languages[keyboardConfig.defaultLang],
       keys: [],
     };
     this.init();
@@ -42,35 +43,30 @@ export class Keyboard {
       for (let y = 0; y < row.length; y++) {
         const keyConfig = row[y];
 
-        let key = new Key(keyConfig, rowDiv);
+        let key = new Key(keyConfig, rowDiv, this.keyboardConfig.output);
         this.keyboardState.keys.push(key);
       }
     }
 
     // add listeners to document to change current lang
-    document.addEventListener("keydown", (e) => {
-      this.tryToggleLangKeys(e);
-    });
-    document.addEventListener("keyup", (e) => {
-      this.tryToggleLangKeys(e);
-    });
+    document.addEventListener("keydown", e => this.tryToggleLangKeys(e));
+    document.addEventListener("keyup", e => this.tryToggleLangKeys(e));
   }
 
   tryToggleLangKeys(e) {
-    let isKeyOne = e.key === this.keyboardConfig.changeLangKeys[0];
-    let isKeyTwo = e.key === this.keyboardConfig.changeLangKeys[1];
-    if (isKeyOne || isKeyTwo) {
-      if (isKeyOne) {
-        this.setState({
-          changeLangKeyOnePressed: !this.keyboardState.changeLangKeyOnePressed,
-        });
-      }
+    const [changeLangKeyOne, changeLangKeyTwo] = this.keyboardConfig.changeLangKeys;
+    let isKeyOne = e.key === changeLangKeyOne;
+    let isKeyTwo = e.key === changeLangKeyTwo;
+    if (isKeyOne) {
+      this.setState({
+        changeLangKeyOnePressed: !this.keyboardState.changeLangKeyOnePressed,
+      });
+    }
 
-      if (isKeyTwo) {
-        this.setState({
-          changeLangKeyTwoPressed: !this.keyboardState.changeLangKeyTwoPressed,
-        });
-      }
+    if (isKeyTwo) {
+      this.setState({
+        changeLangKeyTwoPressed: !this.keyboardState.changeLangKeyTwoPressed,
+      });
     }
     this.tryChangeLang();
   }
@@ -80,15 +76,11 @@ export class Keyboard {
       this.keyboardState.changeLangKeyOnePressed &&
       this.keyboardState.changeLangKeyTwoPressed
     ) {
-      let lang1 = this.keyboardConfig.languages[0];
-      let lang2 = this.keyboardConfig.languages[1];
+      const [ languageOne, languageTwo ] = this.keyboardConfig.languages;
       this.keyboardState.lang =
-        this.keyboardState.lang === lang1 ? lang2 : lang1;
+        this.keyboardState.lang === languageOne ? languageTwo : languageOne;
 
-      for (let i = 0; i < this.keyboardState.keys.length; i++) {
-        const key = this.keyboardState.keys[i];
-        key.toggleLang();
-      }
+      this.keyboardState.keys.forEach((key) => key.toggleLang());
     }
   }
 

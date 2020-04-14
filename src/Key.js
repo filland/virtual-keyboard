@@ -1,5 +1,4 @@
 const keyConfigTemplate = {
-    output: null,
     defaultLang: "ru",
     langs: [
       {
@@ -24,7 +23,7 @@ const keyConfigTemplate = {
   };
   
   export class Key {
-    constructor(keyConfig, parentElement) {
+    constructor(keyConfig, parentElement, output) {
       this.keyConfig = keyConfig;
       this.parentElement = parentElement;
       this.keyState = {
@@ -37,6 +36,7 @@ const keyConfigTemplate = {
         shiftKeyValue: null,
         langs: [],
         currentLang: null,
+        output: output
       };
       this.init();
     }
@@ -81,23 +81,16 @@ const keyConfigTemplate = {
     }
   
     initState() {
-      let langList = [];
-      if (this.keyConfig.langs) {
-        let langsSettings = this.keyConfig.langs;
-        for (let i = 0; i < langsSettings.length; i++) {
-          const settings = langsSettings[i];
-          langList.push(settings.lang);
-        }
-      }
+      const langList = this.keyConfig.langs ? this.keyConfig.langs.map(langSettings => langSettings.lang) : [];
   
       this.setState({ langs: langList });
-      this.setState({ currentLang: this.keyConfig.defaultLang });
+      this.setState({ currentLang: langList[0] });
   
       this.updateState();
     }
   
     initListeners() {
-      let output = this.keyConfig.output;
+      let output = this.keyState.output;
       let eventCode = this.keyConfig.eventCode;
   
       let self = this.keyState.self;
@@ -105,7 +98,7 @@ const keyConfigTemplate = {
       self.addEventListener("click", () => {
         output.value = output.value + this.keyState.keyValue;
         if (this.keyConfig.handler) {
-          this.keyConfig.handler(this.keyConfig.output);
+          this.keyConfig.handler(this.keyState.output);
         }
       });
   
@@ -118,7 +111,7 @@ const keyConfigTemplate = {
             output.value = output.value + this.keyState.keyValue;
   
             if (this.keyConfig.handler) {
-              this.keyConfig.handler(this.keyConfig.output);
+              this.keyConfig.handler(output);
             }
           }
         }
@@ -137,15 +130,20 @@ const keyConfigTemplate = {
         const langSettings = langsSettings[i];
   
         if (this.keyState.currentLang === langSettings.lang) {
-          this.setState({ keyText: langSettings.keyText });
-          this.setState({ keyValue: langSettings.keyValue });
-  
-          this.setState({
-            shiftKeyText: langSettings.shiftKeyText
-              ? langSettings.shiftKeyText
-              : "",
+
+          let { keyText, keyValue, shiftKeyText, shiftKeyValue } = langSettings;
+
+          if(this.keyConfig.type === 'text') {
+            keyValue = keyText;
+            shiftKeyValue = shiftKeyText;
+          }
+
+          this.setState({ 
+            keyText, 
+            keyValue, 
+            shiftKeyText: shiftKeyText || "",
+            shiftKeyValue 
           });
-          this.setState({ shiftKeyValue: langSettings.shiftKeyValue });
           break;
         }
       }

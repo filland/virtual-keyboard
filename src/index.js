@@ -29,83 +29,61 @@ const textarea = document.createElement("textarea");
 textarea.classList.add("keyboard-output");
 main.appendChild(textarea);
 
-
-
-
-
-
 const keyboardConfig = {
+  output: textarea,
   parentDiv: main,
   style: {
     keyboardClass: "keyboard",
   },
   changeLangKeys: ["Control", "Shift"],
   languages: ["ru", "en"],
-  defaultLang: "ru",
+  defaultLang: 0,
 };
-
 
 const keysConfig = [
   [
     {
-      output: textarea,
-      defaultLang: "ru",
       langs: [
         {
           lang: "ru",
           keyText: "ё",
-          keyValue: "ё",
         },
         {
           lang: "en",
           keyText: "`",
-          keyValue: "`",
           shiftKeyText: "~",
-          shiftKeyValue: "~",
         },
       ],
       eventCode: "Backquote",
       type: "text",
     },
     {
-      output: textarea,
-      defaultLang: "ru",
       langs: [
         {
           lang: "ru",
           keyText: "1",
-          keyValue: "1",
           shiftKeyText: "!",
-          shiftKeyValue: "!",
         },
         {
           lang: "en",
           keyText: "1",
-          keyValue: "1",
           shiftKeyText: "!",
-          shiftKeyValue: "!",
         },
       ],
       eventCode: "Digit1",
       type: "text",
     },
     {
-      output: textarea,
-      defaultLang: "ru",
       langs: [
         {
           lang: "ru",
           keyText: "2",
-          keyValue: "2",
           shiftKeyText: '"',
-          shiftKeyValue: '"',
         },
         {
           lang: "en",
           keyText: "2",
-          keyValue: "2",
           shiftKeyText: "@",
-          shiftKeyValue: "@",
         },
       ],
       eventCode: "Digit2",
@@ -113,22 +91,16 @@ const keysConfig = [
     },
 
     {
-      output: textarea,
-      defaultLang: "ru",
       langs: [
         {
           lang: "ru",
           keyText: "3",
-          keyValue: "3",
           shiftKeyText: "№",
-          shiftKeyValue: "№",
         },
         {
           lang: "en",
           keyText: "3",
-          keyValue: "3",
           shiftKeyText: "#",
-          shiftKeyValue: "#",
         },
       ],
       eventCode: "Digit3",
@@ -136,66 +108,48 @@ const keysConfig = [
     },
 
     {
-      output: textarea,
-      defaultLang: "ru",
       langs: [
         {
           lang: "ru",
           keyText: "4",
-          keyValue: "4",
           shiftKeyText: ";",
-          shiftKeyValue: ";",
         },
         {
           lang: "en",
           keyText: "4",
-          keyValue: "4",
           shiftKeyText: "$",
-          shiftKeyValue: "$",
         },
       ],
       eventCode: "Digit4",
       type: "text",
     },
     {
-      output: textarea,
-      defaultLang: "ru",
       langs: [
         {
           lang: "ru",
           keyText: "5",
-          keyValue: "5",
           shiftKeyText: "%",
-          shiftKeyValue: "%",
         },
         {
           lang: "en",
           keyText: "5",
-          keyValue: "5",
           shiftKeyText: "%",
-          shiftKeyValue: "%",
         },
       ],
       eventCode: "Digit5",
       type: "text",
     },
     {
-      output: textarea,
-      defaultLang: "ru",
       langs: [
         {
           lang: "ru",
           keyText: "6",
-          keyValue: "6",
           shiftKeyText: ":",
-          shiftKeyValue: ":",
         },
         {
           lang: "en",
           keyText: "6",
-          keyValue: "6",
           shiftKeyText: "^",
-          shiftKeyValue: "^",
         },
       ],
       eventCode: "Digit6",
@@ -203,22 +157,16 @@ const keysConfig = [
     },
 
     {
-      output: textarea,
-      defaultLang: "ru",
       langs: [
         {
           lang: "ru",
           keyText: "7",
-          keyValue: "7",
           shiftKeyText: "?",
-          shiftKeyValue: "?",
         },
         {
           lang: "en",
           keyText: "7",
-          keyValue: "7",
           shiftKeyText: "&",
-          shiftKeyValue: "&",
         },
       ],
       eventCode: "Digit7",
@@ -226,22 +174,16 @@ const keysConfig = [
     },
 
     {
-      output: textarea,
-      defaultLang: "ru",
       langs: [
         {
           lang: "ru",
           keyText: "8",
-          keyValue: "8",
           shiftKeyText: "*",
-          shiftKeyValue: "*",
         },
         {
           lang: "en",
           keyText: "8",
-          keyValue: "8",
           shiftKeyText: "*",
-          shiftKeyValue: "*",
         },
       ],
       eventCode: "Digit8",
@@ -249,22 +191,16 @@ const keysConfig = [
     },
 
     {
-      output: textarea,
-      defaultLang: "ru",
       langs: [
         {
           lang: "ru",
           keyText: "9",
-          keyValue: "9",
           shiftKeyText: "(",
-          shiftKeyValue: "(",
         },
         {
           lang: "en",
           keyText: "9",
-          keyValue: "9",
           shiftKeyText: "(",
-          shiftKeyValue: "(",
         },
       ],
       eventCode: "Digit9",
@@ -272,22 +208,16 @@ const keysConfig = [
     },
 
     {
-      output: textarea,
-      defaultLang: "ru",
       langs: [
         {
           lang: "ru",
           keyText: "0",
-          keyValue: "0",
           shiftKeyText: ")",
-          shiftKeyValue: ")",
         },
         {
           lang: "en",
           keyText: "0",
-          keyValue: "0",
           shiftKeyText: ")",
-          shiftKeyValue: ")",
         },
       ],
       eventCode: "Digit0",
@@ -295,22 +225,16 @@ const keysConfig = [
     },
 
     {
-      output: textarea,
-      defaultLang: "ru",
       langs: [
         {
           lang: "ru",
           keyText: "-",
-          keyValue: "-",
           shiftKeyText: "_",
-          shiftKeyValue: "_",
         },
         {
           lang: "en",
           keyText: "-",
-          keyValue: "-",
           shiftKeyText: "_",
-          shiftKeyValue: "_",
         },
       ],
       eventCode: "Minus",
@@ -318,30 +242,22 @@ const keysConfig = [
     },
 
     {
-      output: textarea,
-      defaultLang: "ru",
       langs: [
         {
           lang: "ru",
           keyText: "=",
-          keyValue: "=",
           shiftKeyText: "+",
-          shiftKeyValue: "+",
         },
         {
           lang: "en",
           keyText: "=",
-          keyValue: "=",
           shiftKeyText: "+",
-          shiftKeyValue: "+",
         },
       ],
       eventCode: "Equal",
       type: "text",
     },
     {
-      output: textarea,
-      defaultLang: "ru",
       langs: [
         {
           lang: "ru",
@@ -359,25 +275,23 @@ const keysConfig = [
       class: "backspace",
       handler: (output) => {
         output.value = output.value.substring(0, output.value.length - 1);
-      }
+      },
     },
   ],
 
   // row 2
   [
     {
-      output: textarea,
-      defaultLang: "ru",
       langs: [
         {
           lang: "ru",
           keyText: "Tab",
-          keyValue: "",
+          keyValue: "  ",
         },
         {
           lang: "en",
           keyText: "Tab",
-          keyValue: "",
+          keyValue: "  ",
         },
       ],
       eventCode: "Tab",
@@ -385,18 +299,14 @@ const keysConfig = [
     },
 
     {
-      output: textarea,
-      defaultLang: "ru",
       langs: [
         {
           lang: "ru",
           keyText: "й",
-          keyValue: "й",
         },
         {
           lang: "en",
           keyText: "q",
-          keyValue: "q",
         },
       ],
       eventCode: "KeyQ",
@@ -404,18 +314,14 @@ const keysConfig = [
     },
 
     {
-      output: textarea,
-      defaultLang: "ru",
       langs: [
         {
           lang: "ru",
           keyText: "ц",
-          keyValue: "ц",
         },
         {
           lang: "en",
           keyText: "w",
-          keyValue: "w",
         },
       ],
       eventCode: "KeyW",
@@ -423,18 +329,14 @@ const keysConfig = [
     },
 
     {
-      output: textarea,
-      defaultLang: "ru",
       langs: [
         {
           lang: "ru",
           keyText: "у",
-          keyValue: "у",
         },
         {
           lang: "en",
           keyText: "e",
-          keyValue: "e",
         },
       ],
       eventCode: "KeyE",
@@ -442,18 +344,14 @@ const keysConfig = [
     },
 
     {
-      output: textarea,
-      defaultLang: "ru",
       langs: [
         {
           lang: "ru",
           keyText: "к",
-          keyValue: "к",
         },
         {
           lang: "en",
           keyText: "r",
-          keyValue: "r",
         },
       ],
       eventCode: "KeyR",
@@ -461,18 +359,14 @@ const keysConfig = [
     },
 
     {
-      output: textarea,
-      defaultLang: "ru",
       langs: [
         {
           lang: "ru",
           keyText: "е",
-          keyValue: "е",
         },
         {
           lang: "en",
           keyText: "t",
-          keyValue: "t",
         },
       ],
       eventCode: "KeyT",
@@ -480,18 +374,14 @@ const keysConfig = [
     },
 
     {
-      output: textarea,
-      defaultLang: "ru",
       langs: [
         {
           lang: "ru",
           keyText: "н",
-          keyValue: "н",
         },
         {
           lang: "en",
           keyText: "y",
-          keyValue: "y",
         },
       ],
       eventCode: "KeyY",
@@ -499,18 +389,14 @@ const keysConfig = [
     },
 
     {
-      output: textarea,
-      defaultLang: "ru",
       langs: [
         {
           lang: "ru",
           keyText: "г",
-          keyValue: "г",
         },
         {
           lang: "en",
           keyText: "u",
-          keyValue: "u",
         },
       ],
       eventCode: "KeyU",
@@ -518,18 +404,14 @@ const keysConfig = [
     },
 
     {
-      output: textarea,
-      defaultLang: "ru",
       langs: [
         {
           lang: "ru",
           keyText: "ш",
-          keyValue: "ш",
         },
         {
           lang: "en",
           keyText: "i",
-          keyValue: "i",
         },
       ],
       eventCode: "KeyI",
@@ -537,18 +419,14 @@ const keysConfig = [
     },
 
     {
-      output: textarea,
-      defaultLang: "ru",
       langs: [
         {
           lang: "ru",
           keyText: "щ",
-          keyValue: "щ",
         },
         {
           lang: "en",
           keyText: "o",
-          keyValue: "o",
         },
       ],
       eventCode: "KeyO",
@@ -556,18 +434,14 @@ const keysConfig = [
     },
 
     {
-      output: textarea,
-      defaultLang: "ru",
       langs: [
         {
           lang: "ru",
           keyText: "з",
-          keyValue: "з",
         },
         {
           lang: "en",
           keyText: "p",
-          keyValue: "p",
         },
       ],
       eventCode: "KeyP",
@@ -575,18 +449,14 @@ const keysConfig = [
     },
 
     {
-      output: textarea,
-      defaultLang: "ru",
       langs: [
         {
           lang: "ru",
           keyText: "х",
-          keyValue: "х",
         },
         {
           lang: "en",
           keyText: "[",
-          keyValue: "[",
         },
       ],
       eventCode: "BracketLeft",
@@ -594,18 +464,14 @@ const keysConfig = [
     },
 
     {
-      output: textarea,
-      defaultLang: "ru",
       langs: [
         {
           lang: "ru",
           keyText: "ъ",
-          keyValue: "ъ",
         },
         {
           lang: "en",
           keyText: "]",
-          keyValue: "]",
         },
       ],
       eventCode: "BracketRight",
@@ -613,22 +479,16 @@ const keysConfig = [
     },
 
     {
-      output: textarea,
-      defaultLang: "ru",
       langs: [
         {
           lang: "ru",
           keyText: "\\",
-          keyValue: "\\",
           shiftKeyText: "/",
-          shiftKeyValue: "/",
         },
         {
           lang: "en",
           keyText: "\\",
-          keyValue: "\\",
           shiftKeyText: "/",
-          shiftKeyValue: "/",
         },
       ],
       eventCode: "Backslash",
@@ -636,8 +496,6 @@ const keysConfig = [
     },
 
     {
-      output: textarea,
-      defaultLang: "ru",
       langs: [
         {
           lang: "ru",
@@ -658,8 +516,6 @@ const keysConfig = [
   // row 3
   [
     {
-      output: textarea,
-      defaultLang: "ru",
       langs: [
         {
           lang: "ru",
@@ -678,18 +534,14 @@ const keysConfig = [
     },
 
     {
-      output: textarea,
-      defaultLang: "ru",
       langs: [
         {
           lang: "ru",
           keyText: "ф",
-          keyValue: "ф",
         },
         {
           lang: "en",
           keyText: "a",
-          keyValue: "a",
         },
       ],
       eventCode: "KeyA",
@@ -697,18 +549,14 @@ const keysConfig = [
     },
 
     {
-      output: textarea,
-      defaultLang: "ru",
       langs: [
         {
           lang: "ru",
           keyText: "ы",
-          keyValue: "ы",
         },
         {
           lang: "en",
           keyText: "s",
-          keyValue: "s",
         },
       ],
       eventCode: "KeyS",
@@ -716,18 +564,14 @@ const keysConfig = [
     },
 
     {
-      output: textarea,
-      defaultLang: "ru",
       langs: [
         {
           lang: "ru",
           keyText: "в",
-          keyValue: "в",
         },
         {
           lang: "en",
           keyText: "d",
-          keyValue: "d",
         },
       ],
       eventCode: "KeyD",
@@ -735,18 +579,14 @@ const keysConfig = [
     },
 
     {
-      output: textarea,
-      defaultLang: "ru",
       langs: [
         {
           lang: "ru",
           keyText: "а",
-          keyValue: "а",
         },
         {
           lang: "en",
           keyText: "f",
-          keyValue: "f",
         },
       ],
       eventCode: "KeyF",
@@ -754,18 +594,14 @@ const keysConfig = [
     },
 
     {
-      output: textarea,
-      defaultLang: "ru",
       langs: [
         {
           lang: "ru",
           keyText: "п",
-          keyValue: "п",
         },
         {
           lang: "en",
           keyText: "g",
-          keyValue: "g",
         },
       ],
       eventCode: "KeyG",
@@ -773,18 +609,14 @@ const keysConfig = [
     },
 
     {
-      output: textarea,
-      defaultLang: "ru",
       langs: [
         {
           lang: "ru",
           keyText: "р",
-          keyValue: "р",
         },
         {
           lang: "en",
           keyText: "h",
-          keyValue: "h",
         },
       ],
       eventCode: "KeyH",
@@ -792,18 +624,14 @@ const keysConfig = [
     },
 
     {
-      output: textarea,
-      defaultLang: "ru",
       langs: [
         {
           lang: "ru",
           keyText: "о",
-          keyValue: "о",
         },
         {
           lang: "en",
           keyText: "j",
-          keyValue: "j",
         },
       ],
       eventCode: "KeyJ",
@@ -811,18 +639,14 @@ const keysConfig = [
     },
 
     {
-      output: textarea,
-      defaultLang: "ru",
       langs: [
         {
           lang: "ru",
           keyText: "л",
-          keyValue: "л",
         },
         {
           lang: "en",
           keyText: "k",
-          keyValue: "k",
         },
       ],
       eventCode: "KeyK",
@@ -830,18 +654,14 @@ const keysConfig = [
     },
 
     {
-      output: textarea,
-      defaultLang: "ru",
       langs: [
         {
           lang: "ru",
           keyText: "д",
-          keyValue: "д",
         },
         {
           lang: "en",
           keyText: "l",
-          keyValue: "l",
         },
       ],
       eventCode: "KeyL",
@@ -849,18 +669,14 @@ const keysConfig = [
     },
 
     {
-      output: textarea,
-      defaultLang: "ru",
       langs: [
         {
           lang: "ru",
           keyText: "ж",
-          keyValue: "ж",
         },
         {
           lang: "en",
           keyText: ";",
-          keyValue: ";",
         },
       ],
       eventCode: "Semicolon",
@@ -868,18 +684,14 @@ const keysConfig = [
     },
 
     {
-      output: textarea,
-      defaultLang: "ru",
       langs: [
         {
           lang: "ru",
           keyText: "э",
-          keyValue: "э",
         },
         {
           lang: "en",
           keyText: "'",
-          keyValue: "'",
         },
       ],
       eventCode: "Quote",
@@ -887,8 +699,6 @@ const keysConfig = [
     },
 
     {
-      output: textarea,
-      defaultLang: "ru",
       langs: [
         {
           lang: "ru",
@@ -902,7 +712,7 @@ const keysConfig = [
         },
       ],
       eventCode: "Enter",
-      type: "text",
+      type: "system",
       class: "enter",
     },
   ],
@@ -910,8 +720,6 @@ const keysConfig = [
   //  row 4
   [
     {
-      output: textarea,
-      defaultLang: "ru",
       langs: [
         {
           lang: "ru",
@@ -930,18 +738,14 @@ const keysConfig = [
     },
 
     {
-      output: textarea,
-      defaultLang: "ru",
       langs: [
         {
           lang: "ru",
           keyText: "я",
-          keyValue: "я",
         },
         {
           lang: "en",
           keyText: "z",
-          keyValue: "z",
         },
       ],
       eventCode: "KeyZ",
@@ -949,18 +753,14 @@ const keysConfig = [
     },
 
     {
-      output: textarea,
-      defaultLang: "ru",
       langs: [
         {
           lang: "ru",
           keyText: "ч",
-          keyValue: "ч",
         },
         {
           lang: "en",
           keyText: "x",
-          keyValue: "x",
         },
       ],
       eventCode: "KeyX",
@@ -968,18 +768,14 @@ const keysConfig = [
     },
 
     {
-      output: textarea,
-      defaultLang: "ru",
       langs: [
         {
           lang: "ru",
           keyText: "с",
-          keyValue: "с",
         },
         {
           lang: "en",
           keyText: "c",
-          keyValue: "c",
         },
       ],
       eventCode: "KeyC",
@@ -987,18 +783,14 @@ const keysConfig = [
     },
 
     {
-      output: textarea,
-      defaultLang: "ru",
       langs: [
         {
           lang: "ru",
           keyText: "м",
-          keyValue: "м",
         },
         {
           lang: "en",
           keyText: "v",
-          keyValue: "v",
         },
       ],
       eventCode: "KeyV",
@@ -1006,18 +798,14 @@ const keysConfig = [
     },
 
     {
-      output: textarea,
-      defaultLang: "ru",
       langs: [
         {
           lang: "ru",
           keyText: "и",
-          keyValue: "и",
         },
         {
           lang: "en",
           keyText: "b",
-          keyValue: "b",
         },
       ],
       eventCode: "KeyB",
@@ -1025,18 +813,14 @@ const keysConfig = [
     },
 
     {
-      output: textarea,
-      defaultLang: "ru",
       langs: [
         {
           lang: "ru",
           keyText: "т",
-          keyValue: "т",
         },
         {
           lang: "en",
           keyText: "n",
-          keyValue: "n",
         },
       ],
       eventCode: "KeyN",
@@ -1044,18 +828,14 @@ const keysConfig = [
     },
 
     {
-      output: textarea,
-      defaultLang: "ru",
       langs: [
         {
           lang: "ru",
           keyText: "ь",
-          keyValue: "ь",
         },
         {
           lang: "en",
           keyText: "m",
-          keyValue: "m",
         },
       ],
       eventCode: "KeyM",
@@ -1063,18 +843,14 @@ const keysConfig = [
     },
 
     {
-      output: textarea,
-      defaultLang: "ru",
       langs: [
         {
           lang: "ru",
           keyText: "б",
-          keyValue: "б",
         },
         {
           lang: "en",
           keyText: ",",
-          keyValue: ",",
         },
       ],
       eventCode: "Comma",
@@ -1082,18 +858,14 @@ const keysConfig = [
     },
 
     {
-      output: textarea,
-      defaultLang: "ru",
       langs: [
         {
           lang: "ru",
           keyText: "ю",
-          keyValue: "ю",
         },
         {
           lang: "en",
           keyText: ".",
-          keyValue: ".",
         },
       ],
       eventCode: "Period",
@@ -1101,18 +873,14 @@ const keysConfig = [
     },
 
     {
-      output: textarea,
-      defaultLang: "ru",
       langs: [
         {
           lang: "ru",
           keyText: "/",
-          keyValue: "/",
         },
         {
           lang: "en",
           keyText: "/",
-          keyValue: "/",
         },
       ],
       eventCode: "Slash",
@@ -1120,8 +888,6 @@ const keysConfig = [
     },
 
     {
-      output: textarea,
-      defaultLang: "ru",
       langs: [
         {
           lang: "ru",
@@ -1139,8 +905,6 @@ const keysConfig = [
     },
 
     {
-      output: textarea,
-      defaultLang: "ru",
       langs: [
         {
           lang: "ru",
@@ -1161,8 +925,6 @@ const keysConfig = [
   // row 5
   [
     {
-      output: textarea,
-      defaultLang: "ru",
       langs: [
         {
           lang: "ru",
@@ -1180,8 +942,6 @@ const keysConfig = [
     },
 
     {
-      output: textarea,
-      defaultLang: "ru",
       langs: [
         {
           lang: "ru",
@@ -1199,8 +959,6 @@ const keysConfig = [
     },
 
     {
-      output: textarea,
-      defaultLang: "ru",
       langs: [
         {
           lang: "ru",
@@ -1218,8 +976,6 @@ const keysConfig = [
     },
 
     {
-      output: textarea,
-      defaultLang: "ru",
       langs: [
         {
           lang: "ru",
@@ -1238,8 +994,6 @@ const keysConfig = [
     },
 
     {
-      output: textarea,
-      defaultLang: "ru",
       langs: [
         {
           lang: "ru",
@@ -1257,8 +1011,6 @@ const keysConfig = [
     },
 
     {
-      output: textarea,
-      defaultLang: "ru",
       langs: [
         {
           lang: "ru",
@@ -1277,8 +1029,6 @@ const keysConfig = [
     },
 
     {
-      output: textarea,
-      defaultLang: "ru",
       langs: [
         {
           lang: "ru",
@@ -1296,8 +1046,6 @@ const keysConfig = [
     },
 
     {
-      output: textarea,
-      defaultLang: "ru",
       langs: [
         {
           lang: "ru",
@@ -1315,8 +1063,6 @@ const keysConfig = [
     },
 
     {
-      output: textarea,
-      defaultLang: "ru",
       langs: [
         {
           lang: "ru",
@@ -1334,7 +1080,5 @@ const keysConfig = [
     },
   ],
 ];
-
-
 
 new Keyboard(keyboardConfig, keysConfig);
